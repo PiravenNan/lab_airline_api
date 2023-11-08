@@ -1,5 +1,6 @@
 package com.example.airline_api.controllers;
 
+import com.example.airline_api.models.AddPassengerDTO;
 import com.example.airline_api.models.Passenger;
 import com.example.airline_api.services.PassengerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +32,8 @@ public class PassengerController {
 
     // Add a new passenger
     @PostMapping
-    public ResponseEntity<Passenger> addNewPassenger(@RequestBody Passenger newPassenger){
-        return new ResponseEntity<>(passengerService.addNewPassenger(newPassenger),HttpStatus.CREATED);
+    public ResponseEntity<Passenger> addPassenger(@RequestBody AddPassengerDTO addPassengerDTO){
+        return new ResponseEntity<>(passengerService.addPassenger(addPassengerDTO),HttpStatus.CREATED);
     }
 
 }

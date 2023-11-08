@@ -1,5 +1,6 @@
 package com.example.airline_api.controllers;
 
+import com.example.airline_api.models.AddFlightDTO;
 import com.example.airline_api.models.Flight;
 import com.example.airline_api.models.FlightDTO;
 import com.example.airline_api.repositories.PassengerRepository;
@@ -39,8 +40,8 @@ public class FlightController {
 
     // Add details of a new flight
     @PostMapping
-    public ResponseEntity<Flight> addNewFlight(@RequestBody Flight flight){
-        Flight newFlight = flightService.addFlight(flight);
+    public ResponseEntity<Flight> addNewFlight(@RequestBody AddFlightDTO addFlightDTO){
+        Flight newFlight = flightService.addFlight(addFlightDTO);
         return new ResponseEntity<>(newFlight,HttpStatus.CREATED);
     }
 

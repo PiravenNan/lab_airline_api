@@ -1,5 +1,6 @@
 package com.example.airline_api.services;
 
+import com.example.airline_api.models.AddFlightDTO;
 import com.example.airline_api.models.Flight;
 import com.example.airline_api.models.FlightDTO;
 import com.example.airline_api.models.Passenger;
@@ -27,7 +28,14 @@ public class FlightService {
         return flightRepository.findById(id).get();
     }
 
-    public Flight addFlight(Flight flight){
+    public Flight addFlight(AddFlightDTO addFlightDTO){
+        Flight flight = new Flight(addFlightDTO.getDestination(),addFlightDTO.getCapacity(),addFlightDTO.getDepartureDate(),addFlightDTO.getDepartureTime());
+
+        for (Long passengerID : addFlightDTO.getPassengerIDs()){
+            Passenger passenger = passengerRepository.findById(passengerID).get();
+            flight.addPassengers(passenger);
+        }
+
         flightRepository.save(flight);
         return flight;
     }
