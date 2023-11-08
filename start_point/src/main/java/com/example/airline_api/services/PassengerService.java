@@ -32,6 +32,7 @@ public class PassengerService {
         for (Long flightID : addPassengerDTO.getFlightIDs()){
             Flight flight = flightRepository.findById(flightID).get();
             flight.addPassengers(passenger);
+            passenger.addFlights(flight);
         }
 
         passengerRepository.save(passenger);
