@@ -3,7 +3,11 @@ package com.example.airline_api.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -18,9 +22,9 @@ public class Flight {
     @Column
     private int capacity;
     @Column
-    private String departureDate;
+    private LocalDate departureDate;
     @Column
-    private String departureTime;
+    private LocalTime departureTime;
     @ManyToMany
     @JoinTable(
             name = "flight_passengers",
@@ -30,7 +34,7 @@ public class Flight {
     @JsonIgnoreProperties({"flights"})
     private List<Passenger> passengers;
 
-    public Flight(String destination, int capacity, String departureDate, String departureTime) {
+    public Flight(String destination, int capacity, LocalDate departureDate, LocalTime departureTime) {
         this.destination = destination;
         this.capacity = capacity;
         this.departureDate = departureDate;
@@ -65,22 +69,6 @@ public class Flight {
         this.capacity = capacity;
     }
 
-    public String getDepartureDate() {
-        return departureDate;
-    }
-
-    public void setDepartureDate(String departureDate) {
-        this.departureDate = departureDate;
-    }
-
-    public String getDepartureTime() {
-        return departureTime;
-    }
-
-    public void setDepartureTime(String departureTime) {
-        this.departureTime = departureTime;
-    }
-
     public List<Passenger> getPassengers() {
         return passengers;
     }
@@ -91,5 +79,21 @@ public class Flight {
 
     public void addPassengers(Passenger passenger){
         this.passengers.add(passenger);
+    }
+
+    public LocalDate getDepartureDate() {
+        return departureDate;
+    }
+
+    public void setDepartureDate(LocalDate departureDate) {
+        this.departureDate = departureDate;
+    }
+
+    public LocalTime getDepartureTime() {
+        return departureTime;
+    }
+
+    public void setDepartureTime(LocalTime departureTime) {
+        this.departureTime = departureTime;
     }
 }

@@ -11,6 +11,8 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import javax.swing.text.html.parser.Entity;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Component
 public class DataLoader implements ApplicationRunner{
@@ -25,9 +27,19 @@ public class DataLoader implements ApplicationRunner{
     public void run(ApplicationArguments args) throws Exception{
 
         //Flights
-        Flight flightOne = new Flight("Sunderland",1000,"08/11/2023","00:08");
-        Flight flightTwo = new Flight("Paris",2,"10/11/2023","00:09");
-        Flight flightThree = new Flight("Sunderland",1000,"18/11/2023","88:88");
+        LocalDate departureDate = LocalDate.of(2023, 11, 8);
+        LocalTime departureTime = LocalTime.parse("00:08");
+
+        Flight flightOne = new Flight("Sunderland",1000,departureDate,departureTime);
+
+        LocalDate departureDate2 = LocalDate.of(2023, 11, 10);
+        LocalTime departureTime2 = LocalTime.parse("00:09");
+
+        Flight flightTwo = new Flight("Paris",2,departureDate2,departureTime2);
+
+        LocalDate departureDate3 = LocalDate.of(2023, 11, 18);
+        LocalTime departureTime3 = LocalTime.parse("10:28");
+        Flight flightThree = new Flight("Sunderland",1000,departureDate3,departureTime3);
 
         flightRepository.save(flightOne);
         flightRepository.save(flightTwo);
