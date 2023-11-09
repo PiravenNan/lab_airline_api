@@ -49,7 +49,10 @@ public class FlightController {
     @PatchMapping(value = "/{flightID}")
     public ResponseEntity<Flight> addPassengerToFlight(@PathVariable Long flightID,@RequestBody FlightDTO flightDTO){
         Flight newFlight = flightService.addPassengerToFlight(flightID,flightDTO);
-        return new ResponseEntity<>(newFlight,HttpStatus.CREATED);
+        if (newFlight!=null){
+            return new ResponseEntity<>(newFlight,HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
     }
 
     // Cancel flight

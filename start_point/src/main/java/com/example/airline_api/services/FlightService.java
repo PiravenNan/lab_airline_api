@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.OptionalInt;
 
 @Service
 public class FlightService {
@@ -49,18 +51,22 @@ public class FlightService {
 //    }
     @Transactional
     public Flight addPassengerToFlight(Long flightID,FlightDTO flightDTO) {
-        Flight flight = flightRepository.findById(flightID).get();
+        Optional<Flight> Oflight = flightRepository.findById(flightID);
 
-        for (Long passengerID : flightDTO.getPassengerIds()){
-            if (flight.getPassengers().size()<flight.getCapacity()){
-                Passenger passenger = passengerRepository.findById(passengerID).get();
-                passenger.addFlights(flight);
-                flight.addPassengers(passenger);
+        if (Oflight.isPresent()) {
+            Flight flight = Oflight.get();
+            for (Long passengerID : flightDTO.getPassengerIds()) {
+                if (flight.getPassengers().size() < flight.getCapacity()) {
+                    Passenger passenger = passengerRepository.findById(passengerID).get();
+                    passenger.addFlights(flight);
+                    flight.addPassengers(passenger);
+                }
+
             }
-
+            flightRepository.save(flight);
+            return flight;
         }
-        flightRepository.save(flight);
-        return flight;
+        return null;
     }
     public void cancelFlight(Long id) {
         flightRepository.deleteById(id);
